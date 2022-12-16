@@ -26,7 +26,7 @@ asio::awaitable<void> server::do_accept() {
 }
 
 void server::distribute(tcp::socket s) {
-    connection.connection_receive(std::move(s), listener);
+    connection.connection_receive(std::move(s));
 }
 
 void server::async_stop() {
@@ -39,5 +39,4 @@ void server::async_stop() {
 
 void server::run() {
     listener.run();
-    connection.run();
 }

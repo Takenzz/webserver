@@ -2,18 +2,16 @@
 #include "asio.hpp"
 #include "httprequest.h"
 #include "httpresponse.h"
+#include "threadPool.h"
 
 using asio::ip::tcp;
 
 class Connection {
 public:
-    void connection_receive(tcp::socket socket, asio::io_context &io);
+    void connection_receive(tcp::socket socket);
     asio::awaitable<void> connection_handle(tcp::socket socket);
-    void run();
-
 private:
-    asio::io_context io_;
-
+    threadPool io_pool;
 };
 
 

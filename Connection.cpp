@@ -16,8 +16,7 @@ asio::awaitable<void>    Connection::connection_handle(tcp::socket socket) {
             if (state == request_parse::parse_ok) {
                 response_parse.request_handle(req, rep);
                 co_await asio::async_write(socket, rep.to_buffer(), asio::use_awaitable);
-                socket.close();
-                co_return ;
+                continue;
             }
             if (state == request_parse::parse_indeterminate) {
                 continue;
@@ -28,15 +27,12 @@ asio::awaitable<void>    Connection::connection_handle(tcp::socket socket) {
         }
     }
     catch (std::exception& e){
-        std::printf("web Exception: %s\n", e.what());
+        //std::printf("web Exception: %s\n", e.what());
     }
 }
 
-void    Connection::connection_receive(tcp::socket socket, asio::io_context &io) {
-    asio::co_spawn(io, connection_handle(std::move(socket)),asio::detached);
-    run();
+void    Connection::connection_receive(tcp::socket socket) {
+    asio::co_spawn(io_pool.getIo(), connection_handle(std::move(socket)),asio::detached);
 }
 
-void Connection::run() {
-    io_.run();
-}
+
