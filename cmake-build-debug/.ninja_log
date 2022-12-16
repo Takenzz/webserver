@@ -1,0 +1,11 @@
+# ninja log v5
+1	181	6928857747595793	build.ninja	fde1d594907a10f
+14	1443	6924752038574516	CMakeFiles/webserver.dir/httprequest.cpp.obj	e8e1fded4087b791
+6	3736	6925523911261757	CMakeFiles/webserver.dir/httpresponse.cpp.obj	3d19abd545683f9a
+4747	5082	6918571828457267	websever.exe	6fc2575c6f9df702
+13	6514	6928800912563642	CMakeFiles/webserver.dir/Connection.cpp.obj	2d950cd2108ec5b6
+9	4925	6928800896736135	CMakeFiles/webserver.dir/main.cpp.obj	b7664f151671fc7f
+4037	5966	6928803031160774	webserver.exe	2a139a239a4fae73
+6	3524	6925519146322715	CMakeFiles/webserver.dir/response.cpp.obj	3294c162095b39e4
+9	6257	6928802540565688	CMakeFiles/webserver.dir/server.cpp.obj	7e5310d23fe05fd4
+9	4036	6928803011928604	CMakeFiles/webserver.dir/threadPool.cpp.obj	691f6740aa5e02c9
