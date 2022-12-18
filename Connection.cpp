@@ -16,6 +16,13 @@ asio::awaitable<void>    Connection::connection_handle(tcp::socket socket) {
             if (state == request_parse::parse_ok) {
                 response_parse.request_handle(req, rep);
                 co_await asio::async_write(socket, rep.to_buffer(), asio::use_awaitable);
+                if(req.header.count("connection") == 0) {
+                    asio::error_code ignored_ec;
+                    socket.shutdown(asio::ip::tcp::socket::shutdown_both, ignored_ec);
+                    socket.close(ignored_ec);
+                    co_return ;
+                }
+                rep.clear();
                 continue;
             }
             if (state == request_parse::parse_indeterminate) {
@@ -28,6 +35,9 @@ asio::awaitable<void>    Connection::connection_handle(tcp::socket socket) {
     }
     catch (std::exception& e){
         //std::printf("web Exception: %s\n", e.what());
+        asio::error_code ignored_ec;
+        socket.shutdown(asio::ip::tcp::socket::shutdown_both, ignored_ec);
+        socket.close(ignored_ec);
     }
 }
 

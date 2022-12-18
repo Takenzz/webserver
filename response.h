@@ -37,5 +37,12 @@ public:
     std::string body;
 
     std::vector<asio::const_buffer> to_buffer();
+    void clear(){
+        status.clear();
+        header.clear();
+        body.clear();
+        code = status_code::ok;
+        isKeepAlive = true;
+    }
 
 };
