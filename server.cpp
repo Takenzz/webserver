@@ -7,6 +7,9 @@ server::server(const std::string &address, const std::string &port)
         signal.add(SIGTERM);
         signal.add(SIGINT); //添加SIGINT中断信号，SIGTERM终止信号
         async_stop();   //接受停止信号
+        #if defined(SIGQUIT)
+        signal.add(SIGQUIT);
+        #endif // defined(SIGQUIT)
 
         tcp::resolver resolver(listener);
         tcp::endpoint endpoint = *resolver.resolve(address,port).begin(); //解析得到地址和端口的endpoint,包含对应的网络信息
@@ -15,6 +18,7 @@ server::server(const std::string &address, const std::string &port)
         acceptor.bind(endpoint);    //与socket编程里面的bind类似
         acceptor.listen();  //监听连接
         asio::co_spawn(listener, do_accept(), asio::detached);//建立协程等待并处理连接
+
 
 }
 
